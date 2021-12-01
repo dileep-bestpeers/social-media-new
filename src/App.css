@@ -1,0 +1,59 @@
+.HomeImg {
+  width: 100%;
+  height: 95vh;
+  object-fit: cover;
+  object-position: center;
+}
+.card img {
+  cursor: pointer;
+}
+.img_box {
+  width: 100%;
+  height: 160px;
+}
+.img_box img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.container-post {
+  width: 400px;
+  height: 250px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+.container-post img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.user-home-page-img img{
+  height: 150px;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.user-home-page-img h5{
+  font-size:14px;
+  font-weight:bold;
+}
+.user-home-page-img p{
+  font-size:10px
+}
+.user-home-page-img .likeCommentsBox{
+  display: flex;
+  font-size:10px;
+  justify-content: space-between;
+}
+@media (max-width:600px) {
+  .user-home-page-img img{
+    height: 110px;
+  }
+  .user-home-page-img p{
+    display: none;
+  }
+}
