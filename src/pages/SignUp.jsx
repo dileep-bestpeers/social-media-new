@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { signIn } from "../redux/actions/action";
 import { useDispatch } from "react-redux";
+import { validateInputs } from "../validations/Validation";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -16,6 +17,14 @@ function SignUp() {
     password2: "",
   });
 
+  // function ValidateEmail(mail) {
+  //   if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+  //     return true;
+  //   }
+  //   toast("You have entered an invalid email address!");
+  //   return false;
+  // }
+
   const handleInput = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -24,17 +33,20 @@ function SignUp() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { username, password, email, password2 } = formData;
-    if (!username) {
-      toast.error("username is rquired");
-    } else if (!email) {
-      toast.error("email is rquired");
-    } else if (!password) {
-      toast.error("password is rquired");
-    } else if (!password2) {
-      toast.error(" confirmation password is rquired");
-    } else if (password !== password2) {
-      toast.error(" passwords not match");
-    } else {
+    // if (!username) {
+    //   toast.error("username is rquired");
+    // } else if (!email) {
+    //   toast.error("email is rquired");
+    // }
+    //  else if (!password) {
+    //   toast.error("password is rquired");
+    // } else if (!password2) {
+    //   toast.error(" confirmation password is rquired");
+    // } else if (password !== password2) {
+    //   toast.error(" passwords not match");
+    // } 
+    const basicValidation = validateInputs({ username, password ,email, password2});
+   if(basicValidation === undefined) {
       toast.success("Your account has been created successfully");
       dispatch(signIn({ username, email, password }));
       setFormData({
@@ -46,6 +58,9 @@ function SignUp() {
       setTimeout(() => {
         navigate("/");
       }, 1000);
+    }
+    else{
+      toast.error(basicValidation)
     }
   };
 

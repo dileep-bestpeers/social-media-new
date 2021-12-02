@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { BrowserRouter, Route , Routes } from 'react-router-dom';
 import './App.css';
+import Comments from './components/Comments';
 import Navigation from './components/Navbar';
 import AddPost from './pages/AddPost';
 import HomePage from './pages/HomePage';
@@ -22,6 +23,7 @@ const App = () => {
            <Route exact path='/signup' element={<SignUp />}></Route>
            <Route exact path='/user_home' element={<UserHomePage />}></Route>
            <Route exact path='/add_post' element={<AddPost />}></Route>
+           <Route exact path='/comments/:id' element={<Comments />}></Route>
          </Routes>
       </BrowserRouter>
     );

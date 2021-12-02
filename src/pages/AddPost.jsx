@@ -5,8 +5,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 function AddPost() {
   const [selectedFile, setSelectedFile] = useState("");
-  const [imgTitle, setImgTitle] = useState('')
-  const navigate = useNavigate()
+  const [imgTitle, setImgTitle] = useState("");
+  const navigate = useNavigate();
 
   const convertBase64 = (file) => {
     return new Promise((resolve, reject) => {
@@ -29,15 +29,24 @@ function AddPost() {
 
   const setToLocalStorage = () => {
     let localStorageImages = localStorage.getItem("IMAGES");
+    const uploadImgData = {
+      img: selectedFile,
+      uploadByName: JSON.parse(localStorage.getItem("LOGGED_IN_USER")).username,
+      id: new Date().getTime(),
+      like: 0,
+      comments: [],
+      title: imgTitle,
+    };
+
     if (localStorageImages) {
       localStorageImages = JSON.parse(localStorageImages);
-      localStorageImages.push(selectedFile);
+      localStorageImages.push(uploadImgData);
       localStorage.setItem("IMAGES", JSON.stringify(localStorageImages));
     } else {
-      localStorage.setItem("IMAGES", JSON.stringify([selectedFile]));
+      localStorage.setItem("IMAGES", JSON.stringify([uploadImgData]));
     }
-    setSelectedFile("")
-    toast.success("File Uploaded successfully")
+    setSelectedFile("");
+    toast.success("File Uploaded successfully");
     setTimeout(() => {
       navigate("/user_home");
     }, 1500);
@@ -45,7 +54,7 @@ function AddPost() {
 
   return (
     <div className="row mx-auto d-flex  flex-column">
-        <ToastContainer
+      <ToastContainer
         position="top-center"
         autoClose={5000}
         hideProgressBar={false}
@@ -65,7 +74,15 @@ function AddPost() {
             className="my-4"
             onChange={fileSelectHandler}
           />
-          <input placeholder="Enter image title" type="text" name="title" onChange={imgTitle} className="my-3"/>
+          <input
+            placeholder="Enter image title"
+            type="text"
+            name="title"
+            onChange={(e) => {
+              setImgTitle(e.target.value);
+            }}
+            className="my-3"
+          />
 
           <button
             onClick={setToLocalStorage}
@@ -77,9 +94,7 @@ function AddPost() {
       </div>
 
       <div className="container-post mt-4">
-     {
-       selectedFile ?  <img src={selectedFile} alt="" /> : ""
-     }
+        {selectedFile ? <img src={selectedFile} alt="" /> : ""}
       </div>
     </div>
   );

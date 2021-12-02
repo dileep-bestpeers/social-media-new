@@ -28,22 +28,33 @@ function Login() {
       toast("Please enter all required fields");
     } else if (!email) {
       toast.error("Eamil is required");
+      const regex = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$";
+      const result = email.match(regex);
+      if (!result) {
+        toast.error("Invalid email address");
+      }
     } else if (!password) {
       toast.error("password is required");
     } else {
       const localStorageUSER = JSON.parse(localStorage.getItem("SOCIAL"));
-      const filteredUSER = localStorageUSER.filter((user) => {
-        return ((email === user.user.signIn.email && password === user.user.signIn.password));
-      });
-  
-      
-      if (filteredUSER.length > 0) {
-        localStorage.setItem("LOGGED_IN_USER",JSON.stringify(filteredUSER[0].user.signIn));
-        toast.success("login successfully");
-        setTimeout(() => {
-          // navigate(`{/user_home/:${filteredUSER.user.signIn.username}}`)
-          navigate('/user_home')
-        }, 1500);
+      if (localStorageUSER) {
+        const filteredUSER = localStorageUSER.filter((user) => {
+          return (
+            email === user.user.signIn.email &&
+            password === user.user.signIn.password
+          );
+        });
+        if (filteredUSER.length) {
+          localStorage.setItem(
+            "LOGGED_IN_USER",
+            JSON.stringify(filteredUSER[0].user.signIn)
+          );
+          toast.success("login successfully");
+          setTimeout(() => {
+            // navigate(`{/user_home/:${filteredUSER.user.signIn.username}}`)
+            navigate("/");
+          }, 1500);
+        }
       } else {
         toast.warning("account does not exist");
       }

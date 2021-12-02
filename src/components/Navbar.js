@@ -89,6 +89,13 @@ function Navigation() {
               ) : (
                 <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                   <li className="nav-link">{MyDetails.name}</li>
+                  
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/user_home">
+                      All Post
+                    </Link>
+                  </li>
+
                   <li className="nav-item">
                     <Link className="nav-link" to="/add_post">
                       Add Posts

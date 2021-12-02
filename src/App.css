@@ -49,6 +49,10 @@
   font-size:10px;
   justify-content: space-between;
 }
+.likeCommentsBox span{
+  cursor: pointer;
+  color: blue
+}
 @media (max-width:600px) {
   .user-home-page-img img{
     height: 110px;
@@ -56,4 +60,13 @@
   .user-home-page-img p{
     display: none;
   }
+}
+.card-upload-name{
+  font-size:10px;
+}
+.comments_img{
+  width:250px;
+  height:250px;
+  object-fit: cover;
+  object-position: center;
 }
